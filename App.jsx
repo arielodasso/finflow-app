@@ -1,3 +1,10 @@
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { 
+  ShoppingCart, Zap, PiggyBank, X, Trash2, 
+  Settings, Database, BarChart3, Clock, 
+  ChevronRight, Plus, CheckCircle 
+} from 'lucide-react';
+
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
   useEffect(() => {
