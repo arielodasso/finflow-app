@@ -1,9 +1,18 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { 
-  ShoppingCart, PiggyBank, Plus, X, 
-  ChevronRight, Settings, Trash2, CheckCircle, 
-  BarChart3, Clock, Zap, Database 
-} from 'lucide-react';
+const { useState, useEffect } = React;
+// Esto mapea los iconos de Lucide para que funcionen
+const { 
+  ShoppingCart, PiggyBank, Plus, X, ChevronRight, 
+  Settings, Trash2, CheckCircle, BarChart3, Clock, 
+  Zap, Database 
+} = lucide;
+
+// AQUÍ PEGA TODO EL RESTO DEL CÓDIGO QUE TE DIO CLAUDE
+import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  ShoppingCart, PiggyBank, Plus, X,
+  ChevronRight, Settings, Trash2, CheckCircle,
+  BarChart3, Clock, Zap, Database
+} from "lucide-react";
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
@@ -223,16 +232,10 @@ function RingProgress({ pct, color, size = 120, stroke = 10, children }) {
 
 // ─── Income Modal ─────────────────────────────────────────────────────────────
 function IncomeModal({ current, onSave, onClose }) {
-  // Agregamos React. a cada Hook
-  const [val, setVal] = React.useState(current > 0 ? String(current) : "");
-  const ref = React.useRef(null);
-  
-  React.useEffect(() => { 
-    ref.current?.focus(); 
-  }, []);
-
+  const [val, setVal] = useState(current > 0 ? String(current) : "");
+  const ref = useRef(null);
+  useEffect(() => { ref.current?.focus(); }, []);
   const quickVals = [500000, 750000, 944284, 1200000, 1500000, 2000000];
-
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
       <div onClick={e => e.stopPropagation()} style={{ width: "100%", maxWidth: 480, background: "linear-gradient(160deg,#0d0d0d,#111)", border: "1px solid rgba(204,255,0,0.2)", borderRadius: "24px 24px 0 0", padding: "32px 24px 48px" }}>
@@ -266,18 +269,13 @@ function IncomeModal({ current, onSave, onClose }) {
 
 // ─── Add Expense Modal ────────────────────────────────────────────────────────
 function AddExpenseModal({ onAdd, onClose }) {
-  const [amount, setAmount] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [catId, setCatId] = React.useState("needs");
-  const [subcat, setSubcat] = React.useState(NEEDS_SUBCATS[0]);
-  const ref = React.useRef(null);
-
-  React.useEffect(() => { 
-    ref.current?.focus(); 
-  }, []);
-
+  const [amount, setAmount] = useState("");
+  const [name, setName] = useState("");
+  const [catId, setCatId] = useState("needs");
+  const [subcat, setSubcat] = useState(NEEDS_SUBCATS[0]);
+  const ref = useRef(null);
+  useEffect(() => { ref.current?.focus(); }, []);
   const cat = CATEGORIES.find(c => c.id === catId);
-
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
       <div onClick={e => e.stopPropagation()} style={{ width: "100%", maxWidth: 480, background: "linear-gradient(160deg,#0d0d0d,#111)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "24px 24px 0 0", padding: "32px 24px 48px" }}>
@@ -382,44 +380,24 @@ function BudgetCard({ cat, budget, spent }) {
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
-  // Inyectamos React. a todos los hooks para que el navegador los reconozca
   const [income, setIncome] = useLocalStorage("finflow_income", SEED_INCOME);
   const [transactions, setTransactions] = useLocalStorage("finflow_txs", SEED_TRANSACTIONS);
-  const [showIncome, setShowIncome] = React.useState(false);
-  const [showAdd, setShowAdd] = React.useState(false);
-  const [tab, setTab] = React.useState("dashboard");
-  const [filterCat, setFilterCat] = React.useState("all");
+  const [showIncome, setShowIncome] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
+  const [tab, setTab] = useState("dashboard");
+  const [filterCat, setFilterCat] = useState("all");
 
-  const addTx = React.useCallback((tx) => {
-    setTransactions(p => [tx, ...p]);
-    setShowAdd(false); // Cerramos el modal al agregar
-  }, [setTransactions]);
+  const addTx = useCallback((tx) => setTransactions(p => [tx, ...p]), [setTransactions]);
+  const delTx = useCallback((id) => setTransactions(p => p.filter(t => t.id !== id)), [setTransactions]);
 
-  const delTx = React.useCallback((id) => {
-    if(confirm("¿Borrar gasto?")) {
-      setTransactions(p => p.filter(t => t.id !== id));
-    }
-  }, [setTransactions]);
+  const spentByCat = CATEGORIES.reduce((acc, c) => {
+    acc[c.id] = transactions.filter(t => t.catId === c.id).reduce((s, t) => s + t.amount, 0);
+    return acc;
+  }, {});
+  const totalSpent = Object.values(spentByCat).reduce((a, b) => a + b, 0);
+  const filteredTx = filterCat === "all" ? transactions : transactions.filter(t => t.catId === filterCat);
 
-  const spentByCat = React.useMemo(() => {
-    return CATEGORIES.reduce((acc, c) => {
-      acc[c.id] = transactions.filter(t => t.catId === c.id).reduce((s, t) => s + t.amount, 0);
-      return acc;
-    }, {});
-  }, [transactions]);
-
-  const totalSpent = React.useMemo(() => 
-    Object.values(spentByCat).reduce((a, b) => a + b, 0)
-  , [spentByCat]);
-
-  const filteredTx = React.useMemo(() => 
-    filterCat === "all" ? transactions : transactions.filter(t => t.catId === filterCat)
-  , [transactions, filterCat]);
-
-  const months = React.useMemo(() => 
-    [...new Set(transactions.map(t => t.date.slice(0, 7)))].length
-  , [transactions]);
-
+  const months = [...new Set(transactions.map(t => t.date.slice(0, 7)))].length;
   const patrimony = 1636425;
 
   return (
@@ -583,3 +561,6 @@ export default function App() {
     </div>
   );
 }
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
