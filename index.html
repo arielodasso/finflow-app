@@ -2,18 +2,20 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinFlow</title>
-    <!-- React y Babel -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel permite que el navegador entienda el código de Claude -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Lucide Icons -->
+    <!-- Tailwind para los estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide para los iconos -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body style="background: #000;">
+<body class="bg-black text-white">
     <div id="root"></div>
-    <!-- Cargamos App.js con tipo "text/babel" -->
-    <script type="text/babel" src="./App.js"></script>
+    <!-- Importante: el tipo debe ser text/babel -->
+    <script type="text/babel" src="App.js"></script>
 </body>
 </html>
