@@ -148,10 +148,11 @@ const SEED_TRANSACTIONS = [
 })();
 
 // ─── Constants ────────────────────────────────────────────────────────────────
+
 const CATEGORIES = [
-  { id: "needs", label: "Necesidades", pct: 0.5, color: "#CCFF00", icon: ShoppingCart },
-  { id: "wants", label: "Deseos", pct: 0.3, color: "#00D4FF", icon: Zap },
-  { id: "savings", label: "Ahorro", pct: 0.2, color: "#FF6B35", icon: PiggyBank },
+  { id: "needs", label: "Necesidades", pct: 0.5, color: "#CCFF00", iconName: "ShoppingCart" },
+  { id: "wants", label: "Deseos", pct: 0.3, color: "#00D4FF", iconName: "Zap" },
+  { id: "savings", label: "Ahorro", pct: 0.2, color: "#FF6B35", iconName: "PiggyBank" },
 ];
 
 const NEEDS_SUBCATS = ["Alquiler/Hipoteca", "Supermercado", "Servicios", "Transporte", "Salud", "Otro"];
@@ -216,7 +217,7 @@ function IncomeModal({ current, onSave, onClose }) {
             <p style={{ color: "#CCFF00", fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", margin: 0 }}>Configurar</p>
             <h2 style={{ color: "#fff", fontSize: 22, fontWeight: 700, margin: "4px 0 0" }}>Ingreso Mensual</h2>
           </div>
-          <button onClick={onClose} style={{ background: "rgba(255,255,255,0.08)", border: "none", borderRadius: 12, padding: 10, cursor: "pointer" }}><X size={18} color="#fff" /></button>
+          <button onClick={onClose} style={{ background: "rgba(255,255,255,0.08)", border: "none", borderRadius: 12, padding: 10, cursor: "pointer" }}>{React.createElement(lucide.icons.X, { size: 18, color: "#fff" })}</button>
         </div>
         <div style={{ background: "rgba(204,255,0,0.05)", border: "1px solid rgba(204,255,0,0.2)", borderRadius: 16, padding: "4px 20px", marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ color: "#CCFF00", fontSize: 24, fontWeight: 700 }}>$</span>
