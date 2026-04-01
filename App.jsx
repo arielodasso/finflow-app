@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { useState, useEffect, useCallback, useRef } from "react";
-import {
-  ShoppingCart, PiggyBank, Plus, X,
-  ChevronRight, Settings, Trash2, CheckCircle,
-  BarChart3, Clock, Zap, Database
-} from "lucide-react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { 
+  ShoppingCart, PiggyBank, Plus, X, 
+  ChevronRight, Settings, Trash2, CheckCircle, 
+  BarChart3, Clock, Zap, Database 
+} from 'lucide-react';
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
