@@ -370,7 +370,7 @@ function BudgetCard({ cat, budget, spent }) {
 }
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
-export default function App() {
+function App() {
   const [income, setIncome] = useLocalStorage("finflow_income", SEED_INCOME);
   const [transactions, setTransactions] = useLocalStorage("finflow_txs", SEED_TRANSACTIONS);
   const [showIncome, setShowIncome] = useState(false);
