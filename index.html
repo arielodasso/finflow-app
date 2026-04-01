@@ -2,36 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>FinFlow</title>
-    
-    <!-- Scripts base -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- Import Map para resolver dependencias -->
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@18.2.0",
-        "react-dom": "https://esm.sh/react-dom@18.2.0",
-        "lucide-react": "https://esm.sh/lucide-react@0.344.0"
-      }
-    }
-    </script>
 </head>
-<body class="bg-black text-white">
+<body class="bg-black">
     <div id="root"></div>
 
-    <!-- Carga del componente principal -->
-    <script type="text/babel" data-type="module">
-        import React from 'react';
-        import { createRoot } from 'react-dom';
-        import App from './App.jsx';
-
-        const container = document.getElementById('root');
-        const root = createRoot(container);
-        root.render(<App />);
+    <!-- IMPORTANTE: Cambiamos la carga para que pase por Babel -->
+    <script type="text/babel">
+      // Definimos los componentes de Lucide globalmente para que App.jsx los encuentre
+      // ya que sin un bundler no podemos usar 'import' de librerías externas fácilmente
     </script>
+    
+    <script type="text/babel" data-presets="react" src="./App.jsx"></script>
 </body>
 </html>
