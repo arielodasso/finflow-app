@@ -1,9 +1,11 @@
 const { useState, useEffect, useCallback, useRef } = React;
+
+// Cambia esto:
 const { 
   ShoppingCart, PiggyBank, Plus, X, ChevronRight, 
   Settings, Trash2, CheckCircle, BarChart3, Clock, 
   Zap, Database 
-} = lucide;
+} = lucide.icons; // <--- AGREGA ".icons" AQUÍ
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
