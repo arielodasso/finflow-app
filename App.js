@@ -1,4 +1,4 @@
-const { useState, useEffect } = React;
+const { useState, useEffect, useCallback, useRef } = React;
 const { 
   ShoppingCart, PiggyBank, Plus, X, ChevronRight, 
   Settings, Trash2, CheckCircle, BarChart3, Clock, 
