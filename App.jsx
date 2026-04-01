@@ -657,3 +657,7 @@ export default function App() {
     </div>
   );
 }
+
+// Y al final del archivo agregá el render:
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
