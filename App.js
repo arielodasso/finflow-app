@@ -7,27 +7,6 @@ const {
   Zap, Database 
 } = lucide.icons; // <--- AGREGA ".icons" AQUÍ
 
-// ─── PWA Head ─────────────────────────────────────────────────────────────────
-function PWAHead() {
-  useEffect(() => {
-    document.title = "FinFlow 50-30-20";
-    const metas = [
-      { name: "theme-color", content: "#000000" },
-      { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "FinFlow" },
-      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "mobile-web-app-capable", content: "yes" },
-    ];
-    metas.forEach(({ name, content }) => {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) { el = document.createElement("meta"); el.name = name; document.head.appendChild(el); }
-      el.content = content;
-    });
-  }, []);
-  return null;
-}
-
 // ─── Datos reales extraídos del Excel ─────────────────────────────────────────
 // Fuente: Plantilla 50/30/20 – hojas Ingresos, Gastos, Patrimonio
 // Período: enero–abril 2026 | Solo transacciones con "Impacta resultados = Si"
@@ -395,7 +374,6 @@ function App() {
 
   return (
     <div style={{ minHeight: "100dvh", background: "#000", color: "#fff", fontFamily: "'SF Pro Display',-apple-system,'Helvetica Neue',sans-serif", maxWidth: 480, margin: "0 auto", paddingBottom: 90 }}>
-      <PWAHead />
       <style>{`
         *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
         body{margin:0;background:#000;overscroll-behavior:none}
