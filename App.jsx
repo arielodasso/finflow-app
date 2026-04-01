@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { 
-  ShoppingCart, Zap, PiggyBank, X, Trash2, 
-  Settings, Database, BarChart3, Clock, 
-  ChevronRight, Plus, CheckCircle, Smartphone,
-  Layout, Shield, ArrowRight
-} from 'lucide-react';
+const { useState, useEffect, useCallback, useRef, useMemo } = React;
+
+// Si usas iconos de Lucide, definí los componentes básicos con SVG o emojis para evitar errores:
+const ShoppingCart = () => <span>🛒</span>;
+const Zap = () => <span>⚡</span>;
+const PiggyBank = () => <span>💰</span>;
+const ArrowUpRight = () => <span>↗️</span>;
+const Trash2 = () => <span>🗑️</span>;
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
