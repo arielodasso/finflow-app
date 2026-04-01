@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FinFlow</title>
-    <!-- Import Maps: La clave para que funcione sin build -->
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@18.2.0",
-        "react-dom": "https://esm.sh/react-dom@18.2.0/client",
-        "lucide-react": "https://esm.sh/lucide-react@0.344.0"
-      }
-    }
-    </script>
+    <!-- React y Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body style="background: #000;">
     <div id="root"></div>
-    <!-- Cargamos el archivo App.js como un módulo -->
-    <script type="module" src="./App.js"></script>
+    <!-- Cargamos App.js con tipo "text/babel" -->
+    <script type="text/babel" src="./App.js"></script>
 </body>
 </html>
