@@ -1,18 +1,9 @@
 const { useState, useEffect } = React;
-// Esto mapea los iconos de Lucide para que funcionen
 const { 
   ShoppingCart, PiggyBank, Plus, X, ChevronRight, 
   Settings, Trash2, CheckCircle, BarChart3, Clock, 
   Zap, Database 
 } = lucide;
-
-// AQUÍ PEGA TODO EL RESTO DEL CÓDIGO QUE TE DIO CLAUDE
-import { useState, useEffect, useCallback, useRef } from "react";
-import {
-  ShoppingCart, PiggyBank, Plus, X,
-  ChevronRight, Settings, Trash2, CheckCircle,
-  BarChart3, Clock, Zap, Database
-} from "lucide-react";
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
