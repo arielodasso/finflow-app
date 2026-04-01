@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from 'react';
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   ShoppingCart, PiggyBank, Plus, X,
