@@ -371,24 +371,44 @@ function BudgetCard({ cat, budget, spent }) {
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
+  // Inyectamos React. a todos los hooks para que el navegador los reconozca
   const [income, setIncome] = useLocalStorage("finflow_income", SEED_INCOME);
   const [transactions, setTransactions] = useLocalStorage("finflow_txs", SEED_TRANSACTIONS);
-  const [showIncome, setShowIncome] = useState(false);
-  const [showAdd, setShowAdd] = useState(false);
-  const [tab, setTab] = useState("dashboard");
-  const [filterCat, setFilterCat] = useState("all");
+  const [showIncome, setShowIncome] = React.useState(false);
+  const [showAdd, setShowAdd] = React.useState(false);
+  const [tab, setTab] = React.useState("dashboard");
+  const [filterCat, setFilterCat] = React.useState("all");
 
-  const addTx = useCallback((tx) => setTransactions(p => [tx, ...p]), [setTransactions]);
-  const delTx = useCallback((id) => setTransactions(p => p.filter(t => t.id !== id)), [setTransactions]);
+  const addTx = React.useCallback((tx) => {
+    setTransactions(p => [tx, ...p]);
+    setShowAdd(false); // Cerramos el modal al agregar
+  }, [setTransactions]);
 
-  const spentByCat = CATEGORIES.reduce((acc, c) => {
-    acc[c.id] = transactions.filter(t => t.catId === c.id).reduce((s, t) => s + t.amount, 0);
-    return acc;
-  }, {});
-  const totalSpent = Object.values(spentByCat).reduce((a, b) => a + b, 0);
-  const filteredTx = filterCat === "all" ? transactions : transactions.filter(t => t.catId === filterCat);
+  const delTx = React.useCallback((id) => {
+    if(confirm("¿Borrar gasto?")) {
+      setTransactions(p => p.filter(t => t.id !== id));
+    }
+  }, [setTransactions]);
 
-  const months = [...new Set(transactions.map(t => t.date.slice(0, 7)))].length;
+  const spentByCat = React.useMemo(() => {
+    return CATEGORIES.reduce((acc, c) => {
+      acc[c.id] = transactions.filter(t => t.catId === c.id).reduce((s, t) => s + t.amount, 0);
+      return acc;
+    }, {});
+  }, [transactions]);
+
+  const totalSpent = React.useMemo(() => 
+    Object.values(spentByCat).reduce((a, b) => a + b, 0)
+  , [spentByCat]);
+
+  const filteredTx = React.useMemo(() => 
+    filterCat === "all" ? transactions : transactions.filter(t => t.catId === filterCat)
+  , [transactions, filterCat]);
+
+  const months = React.useMemo(() => 
+    [...new Set(transactions.map(t => t.date.slice(0, 7)))].length
+  , [transactions]);
+
   const patrimony = 1636425;
 
   return (
