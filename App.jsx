@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   ShoppingCart, Zap, PiggyBank, X, Trash2, 
   Settings, Database, BarChart3, Clock, 
-  ChevronRight, Plus, CheckCircle 
+  ChevronRight, Plus, CheckCircle, Smartphone,
+  Layout, Shield, ArrowRight
 } from 'lucide-react';
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
@@ -157,6 +158,109 @@ const SEED_TRANSACTIONS = [
   {id:1774915200121,amount:62640.24,name:"Pago tarjeta de crédito",catId:"needs",subcat:"Otro",date:"2026-03-31T00:00:00"},
   {id:1775001600122,amount:22800,name:"Cargador portátil",catId:"needs",subcat:"Otro",date:"2026-04-01T00:00:00"},
 ];
+
+const App = () => {
+  const [transactions, setTransactions] = useState(SEED_TRANSACTIONS);
+  const [view, setView] = useState('dashboard'); // dashboard, history, settings
+
+  const totalIncome = transactions
+    .filter(t => t.type === 'income')
+    .reduce((acc, curr) => acc + curr.amount, 0);
+
+  const totalExpenses = transactions
+    .filter(t => t.type === 'expense')
+    .reduce((acc, curr) => acc + curr.amount, 0);
+
+  const balance = totalIncome - totalExpenses;
+
+  // Mapa de iconos para renderizado dinámico
+  const IconMap = { ShoppingCart, Zap, PiggyBank, Database, BarChart3 };
+
+  return (
+    <div className="min-h-screen pb-20 bg-[#0a0a0a] font-sans">
+      {/* Header Estilo Dark Tech */}
+      <header className="p-6 border-b border-white/5 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+        <div className="flex justify-between items-center max-w-lg mx-auto">
+          <h1 className="text-xl font-bold tracking-tighter flex items-center gap-2">
+            <div className="w-8 h-8 bg-[#ccff00] rounded-lg flex items-center justify-center">
+              <Zap className="text-black w-5 h-5" />
+            </div>
+            FIN<span className="text-[#ccff00]">FLOW</span>
+          </h1>
+          <button onClick={() => setView('settings')} className="p-2 hover:bg-white/5 rounded-full transition-colors">
+            <Settings className="w-5 h-5 text-white/60" />
+          </button>
+        </div>
+      </header>
+
+      <main className="p-5 max-w-lg mx-auto space-y-6">
+        {/* Card de Balance Principal */}
+        <section className="relative overflow-hidden p-6 rounded-[2rem] bg-white/[0.03] border border-white/10 shadow-2xl">
+          <div className="absolute top-0 right-0 p-8 opacity-10">
+            <BarChart3 size={120} className="text-[#ccff00]" />
+          </div>
+          <p className="text-white/40 text-sm font-medium uppercase tracking-widest mb-1">Balance Disponible</p>
+          <h2 className="text-4xl font-bold tracking-tighter mb-4">
+            ${balance.toLocaleString()}
+          </h2>
+          <div className="flex gap-4">
+            <div className="flex-1 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+              <p className="text-[10px] text-white/40 uppercase mb-1">Ingresos</p>
+              <p className="text-[#ccff00] font-bold text-sm">+${totalIncome.toLocaleString()}</p>
+            </div>
+            <div className="flex-1 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+              <p className="text-[10px] text-white/40 uppercase mb-1">Gastos</p>
+              <p className="text-red-400 font-bold text-sm">-${totalExpenses.toLocaleString()}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Lista de Movimientos */}
+        <section className="space-y-4">
+          <div className="flex justify-between items-center px-1">
+            <h3 className="font-semibold text-lg">Actividad Reciente</h3>
+            <button onClick={() => setView('history')} className="text-xs text-[#ccff00] font-bold">VER TODO</button>
+          </div>
+          
+          <div className="space-y-3">
+            {transactions.slice(0, 5).map(t => {
+              const IconComponent = IconMap[t.icon] || Database;
+              return (
+                <div key={t.id} className="group flex items-center p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#ccff00]/30 transition-all cursor-pointer">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <IconComponent className="w-5 h-5 text-white/80" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-medium text-sm">{t.description}</h4>
+                    <p className="text-xs text-white/40">{t.category}</p>
+                  </div>
+                  <p className={`font-bold ${t.type === 'income' ? 'text-[#ccff00]' : 'text-white'}`}>
+                    {t.type === 'income' ? '+' : '-'}${t.amount.toLocaleString()}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      </main>
+
+      {/* Nav Bar flotante */}
+      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full p-2 flex justify-between items-center shadow-2xl">
+        <button onClick={() => setView('dashboard')} className={`p-4 rounded-full ${view === 'dashboard' ? 'bg-[#ccff00] text-black' : 'text-white/40'}`}>
+          <Layout className="w-5 h-5" />
+        </button>
+        <button className="w-14 h-14 bg-[#ccff00] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(204,255,0,0.3)] -mt-10 border-4 border-[#0a0a0a]">
+          <Plus className="text-black w-6 h-6" />
+        </button>
+        <button onClick={() => setView('history')} className={`p-4 rounded-full ${view === 'history' ? 'bg-[#ccff00] text-black' : 'text-white/40'}`}>
+          <Clock className="w-5 h-5" />
+        </button>
+      </nav>
+    </div>
+  );
+};
+
+export default App;
 
 // ─── Seed localStorage on first load ─────────────────────────────────────────
 (function seedIfEmpty() {
