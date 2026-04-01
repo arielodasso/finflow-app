@@ -223,10 +223,16 @@ function RingProgress({ pct, color, size = 120, stroke = 10, children }) {
 
 // ─── Income Modal ─────────────────────────────────────────────────────────────
 function IncomeModal({ current, onSave, onClose }) {
-  const [val, setVal] = useState(current > 0 ? String(current) : "");
-  const ref = useRef(null);
-  useEffect(() => { ref.current?.focus(); }, []);
+  // Agregamos React. a cada Hook
+  const [val, setVal] = React.useState(current > 0 ? String(current) : "");
+  const ref = React.useRef(null);
+  
+  React.useEffect(() => { 
+    ref.current?.focus(); 
+  }, []);
+
   const quickVals = [500000, 750000, 944284, 1200000, 1500000, 2000000];
+
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
       <div onClick={e => e.stopPropagation()} style={{ width: "100%", maxWidth: 480, background: "linear-gradient(160deg,#0d0d0d,#111)", border: "1px solid rgba(204,255,0,0.2)", borderRadius: "24px 24px 0 0", padding: "32px 24px 48px" }}>
@@ -260,13 +266,18 @@ function IncomeModal({ current, onSave, onClose }) {
 
 // ─── Add Expense Modal ────────────────────────────────────────────────────────
 function AddExpenseModal({ onAdd, onClose }) {
-  const [amount, setAmount] = useState("");
-  const [name, setName] = useState("");
-  const [catId, setCatId] = useState("needs");
-  const [subcat, setSubcat] = useState(NEEDS_SUBCATS[0]);
-  const ref = useRef(null);
-  useEffect(() => { ref.current?.focus(); }, []);
+  const [amount, setAmount] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [catId, setCatId] = React.useState("needs");
+  const [subcat, setSubcat] = React.useState(NEEDS_SUBCATS[0]);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => { 
+    ref.current?.focus(); 
+  }, []);
+
   const cat = CATEGORIES.find(c => c.id === catId);
+
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
       <div onClick={e => e.stopPropagation()} style={{ width: "100%", maxWidth: 480, background: "linear-gradient(160deg,#0d0d0d,#111)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "24px 24px 0 0", padding: "32px 24px 48px" }}>
