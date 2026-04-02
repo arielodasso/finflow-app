@@ -9,11 +9,12 @@ const Clock = () => <span>⏰</span>;
 const ChevronRight = () => <span>➡️</span>;
 const CheckCircle = () => <span>✅</span>;
 const X = ({size}) => <span style={{fontSize: size}}>✕</span>;
-const ShoppingCart = ({size}) => <span style={{fontSize: size}}>🛒</span>;
-const Zap = ({size}) => <span style={{fontSize: size}}>⚡</span>;
-const PiggyBank = ({size}) => <span style={{fontSize: size}}>🏦</span>;
-const Plus = ({size}) => <span style={{fontSize: size}}>+</span>;
-const Trash2 = ({size}) => <span style={{fontSize: size}}>🗑️</span>;
+const ShoppingCart = () => <span>🛒</span>;
+const Zap = () => <span>⚡</span>;
+const PiggyBank = () => <span>🏦</span>;
+const X = () => <span>✕</span>;
+const Plus = () => <span>+</span>;
+const Trash2 = () => <span>🗑️</span>;
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
