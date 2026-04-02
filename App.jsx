@@ -1,7 +1,6 @@
 const { useState, useEffect, useCallback, useRef, useMemo } = React;
 
-// Si usas iconos de Lucide, definí los componentes básicos con SVG o emojis para evitar errores:
-
+// Íconos básicos con emojis para compatibilidad total
 const Database = () => <span>🗄️</span>;
 const BarChart3 = () => <span>📊</span>;
 const Settings = () => <span>⚙️</span>;
@@ -9,6 +8,12 @@ const Layout = () => <span>📐</span>;
 const Clock = () => <span>⏰</span>;
 const ChevronRight = () => <span>➡️</span>;
 const CheckCircle = () => <span>✅</span>;
+const X = ({size}) => <span style={{fontSize: size}}>✕</span>;
+const ShoppingCart = ({size}) => <span style={{fontSize: size}}>🛒</span>;
+const Zap = ({size}) => <span style={{fontSize: size}}>⚡</span>;
+const PiggyBank = ({size}) => <span style={{fontSize: size}}>🏦</span>;
+const Plus = ({size}) => <span style={{fontSize: size}}>+</span>;
+const Trash2 = ({size}) => <span style={{fontSize: size}}>🗑️</span>;
 
 // ─── PWA Head ─────────────────────────────────────────────────────────────────
 function PWAHead() {
