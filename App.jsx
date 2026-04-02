@@ -475,7 +475,7 @@ function BudgetCard({ cat, budget, spent }) {
 }
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
-export default function App() {
+function App() {
   const [income, setIncome] = useLocalStorage("finflow_income", SEED_INCOME);
   const [transactions, setTransactions] = useLocalStorage("finflow_txs", SEED_TRANSACTIONS);
   const [showIncome, setShowIncome] = useState(false);
@@ -659,5 +659,6 @@ export default function App() {
 }
 
 // Y al final del archivo agregá el render:
+// Esta línea es la que efectivamente "prende" la app en el div 'root'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
